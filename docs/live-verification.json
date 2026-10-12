@@ -1,0 +1,59 @@
+{
+  "network": "stable Studionet",
+  "rpc": "https://studio.genlayer.com/api",
+  "chain_id": 61999,
+  "execution_mode": "Normal (Full Consensus)",
+  "contract_address": "0x3AE46E93376edbfc3b9648641C8B8d93B1d101d3",
+  "explorer_contract": "https://explorer-studio.genlayer.com/address/0x3AE46E93376edbfc3b9648641C8B8d93B1d101d3",
+  "deployment_transaction": "0x4c8d7256a58f8be8dcc4e503eb76b831f04f098b53d841fe5952799804a0cee4",
+  "commitment_transaction": "0xa85f569b6f7d84894997c281fc8519c05088adf1d00a092cbc098401e4eed778",
+  "deployed_commit_sha": "3b30728e7b07bf42e80a9aa91d88253cb2e14d9a",
+  "source_sha256": "45eb63a0719b7750b9c2442060636d2ef10d7478acff67ed27395ead09eccf2f",
+  "source_bytes": 13199,
+  "source_readback_byte_identical": true,
+  "incident_id": "demo-queue-2026",
+  "tests": {
+    "passed": 31,
+    "lint": "passed (3 checks)",
+    "sdk_validation": "passed; 3 write and 3 view methods",
+    "ci_run": "https://github.com/ANZA24k/IncidentProof/actions/runs/38221129672",
+    "ci_conclusion": "success"
+  },
+  "manifest": [
+    {
+      "url": "https://raw.githubusercontent.com/ANZA24k/IncidentProof/210ab42e6d4a5a7729c3175313c63de0a35ec88d/fixtures/incident.txt",
+      "sha256": "93ed1ac8df67ee25ba83e717b57975dcbb3782e7cb1cd6ab6a069273c3c1f934",
+      "bytes": 1449,
+      "role": "postmortem"
+    }
+  ],
+  "prior_attempts": [
+    {
+      "address": "0xe64dF2d003FA0B3F37D6d1Bf17F6b989aebad1fC",
+      "verification_tx": "0xccb912a72f28e47ed37247c1bac72b3cbca5a66d612b4b6ae322205b64c180c0",
+      "result": "UNDETERMINED/assessment validation errors",
+      "fix": "Explicit JSON output schema and whitespace-normalized authenticated excerpts."
+    },
+    {
+      "address": "0x95cBEf277D3015D9e3E7C11e1569627a7C657Dbd",
+      "verification_tx": "0x2dd273b72910865c264a275f9cee27172c25e858c4c379e92655e79e7d84bd71",
+      "result": "UNDETERMINED/trust policy disagreement",
+      "fix": "Explicitly fabricated evidence cannot be trustworthy operational incident evidence. All claims still independently assessed."
+    }
+  ],
+  "verification_transaction": "0x8efa8fe373e78a69b6f5d3dac3b2ec772a87248c3a38ec385720247ea1163d33",
+  "transaction_status": "FINALIZED",
+  "consensus_result": "Accepted",
+  "genvm_result": "SUCCESS",
+  "validator_votes": {
+    "agree": 3,
+    "disagree": 1,
+    "idle_after_quorum": 1
+  },
+  "outcome": "INSUFFICIENT",
+  "decision_hash": "29195d15517bbe5848f0cc79f9e3223d8284228e086178426bf9613f57f86252",
+  "decision_hash_recomputed": true,
+  "state": "FINAL",
+  "final_state_file": "final-state.json",
+  "history_count": 2
+}

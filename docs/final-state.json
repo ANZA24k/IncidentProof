@@ -1,0 +1,84 @@
+{
+  "claims": {
+    "remediation": "Restore capacity to 100 and reject capacities below 1 at startup; regression tests demonstrate zero and negative rejection and acceptance for capacities 1 and 100.",
+    "root_cause": "The configuration rollout allowed queue_capacity=0 without startup validation, causing all enqueue operations to reject.",
+    "statement": "SYNTHETIC DemoQueue configuration incident; assess internal fixture consistency only, not a real-world incident.",
+    "timeline": "On 2026-10-01 UTC, queue submissions failed at 10:05, alert fired 10:06, reproduction at 10:08, fix at 10:15, recovery 10:18 and clean observation through 10:25."
+  },
+  "commitment": "6db9fb9bee39a6735b61a339238b6d8650e9370d0281910d089210539398a60d",
+  "created_at": 1791792300,
+  "deadline": 1792368000,
+  "decision_hash": "29195d15517bbe5848f0cc79f9e3223d8284228e086178426bf9613f57f86252",
+  "id": "demo-queue-2026",
+  "manifest": [
+    {
+      "bytes": 1449,
+      "role": "postmortem",
+      "sha256": "93ed1ac8df67ee25ba83e717b57975dcbb3782e7cb1cd6ab6a069273c3c1f934",
+      "url": "https://raw.githubusercontent.com/ANZA24k/IncidentProof/210ab42e6d4a5a7729c3175313c63de0a35ec88d/fixtures/incident.txt"
+    }
+  ],
+  "operator": "0x627BF53CB4D6124F213A13A417a76469b4F3F443",
+  "policy": "IncidentProof/1",
+  "state": "FINAL",
+  "verdict": {
+    "assessment": {
+      "contradictions": false,
+      "remediation": {
+        "citations": [
+          {
+            "index": 0,
+            "quote": "Change record at 10:15: startup rejects capacity below 1 before accepting traffic; production demonstration configuration restored queue_capacity=100."
+          },
+          {
+            "index": 0,
+            "quote": "Regression test report at 10:17: capacity 0 rejected on startup (PASS); capacity -1 rejected (PASS); capacity 1 accepts one item (PASS); capacity 100 accepts item (PASS)."
+          },
+          {
+            "index": 0,
+            "quote": "Repeat reproducer after change: invalid zero capacity prevented at startup, healthy configuration accepted submission. These tests address the misconfiguration cause."
+          }
+        ],
+        "finding": "SUPPORTED"
+      },
+      "root_cause": {
+        "citations": [
+          {
+            "index": 0,
+            "quote": "Diagnostic log at 10:08: configured queue_capacity=0; enqueue rejected because capacity was zero."
+          },
+          {
+            "index": 0,
+            "quote": "Root cause: a configuration rollout allowed queue_capacity=0 without validation."
+          }
+        ],
+        "finding": "SUPPORTED"
+      },
+      "sufficient": true,
+      "timeline": {
+        "citations": [
+          {
+            "index": 0,
+            "quote": "Status record: 10:00 healthy. 10:05 error rate rose to 100% for queue submissions. 10:06 alert fired. 10:08 engineer reproduced failure. 10:15 corrected config deployed."
+          },
+          {
+            "index": 0,
+            "quote": "10:18 health restored; 10:25 observation window ended with zero submission errors."
+          }
+        ],
+        "finding": "SUPPORTED"
+      },
+      "trustworthy": false
+    },
+    "chain_id": 61999,
+    "commitment": "6db9fb9bee39a6735b61a339238b6d8650e9370d0281910d089210539398a60d",
+    "contract": "0x3AE46E93376edbfc3b9648641C8B8d93B1d101d3",
+    "id": "demo-queue-2026",
+    "outcome": "INSUFFICIENT",
+    "policy": "IncidentProof/1",
+    "receipts": [
+      "AUTHENTICATED"
+    ],
+    "verified_at": 1791792351
+  }
+}
