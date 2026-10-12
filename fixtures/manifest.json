@@ -1,0 +1,8 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/ANZA24k/IncidentProof/210ab42e6d4a5a7729c3175313c63de0a35ec88d/fixtures/incident.txt",
+    "sha256": "93ed1ac8df67ee25ba83e717b57975dcbb3782e7cb1cd6ab6a069273c3c1f934",
+    "bytes": 1449,
+    "role": "postmortem"
+  }
+]

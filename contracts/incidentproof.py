@@ -83,7 +83,7 @@ def validate_assessment(result, bodies, receipts):
             require(isinstance(citation, dict) and set(citation) == {"index", "quote"}, "citation schema")
             index, quote = citation["index"], citation["quote"]
             require(type(index) is int and 0 <= index < len(bodies), "citation index")
-            require(isinstance(quote, str) and 12 <= len(quote) <= 240 and receipts[index] == "AUTHENTICATED" and quote in bodies[index], "citation not authenticated")
+            require(isinstance(quote, str) and 12 <= len(quote) <= 240 and receipts[index] == "AUTHENTICATED" and " ".join(quote.split()) in " ".join(bodies[index].split()), "citation not authenticated")
     for key in ("contradictions", "trustworthy", "sufficient"):
         require(type(result[key]) is bool, "boolean required")
     require(result["contradictions"] or all(result[a]["finding"] != "CONTRADICTED" for a in AXES), "contradiction flag")
@@ -122,13 +122,14 @@ a promise or status recovery alone is insufficient. Flag material cross-document
 Trustworthy means adequate provenance and corroboration within the stated scope; sufficient
 means enough usable coverage to assess the incident, even when one claim remains UNKNOWN.
 Return JSON with exactly timeline, root_cause, remediation (each {finding: SUPPORTED,
-CONTRADICTED or UNKNOWN, citations: [{index: zero-based document index, quote: exact
-12-240 character substring}]}), contradictions, trustworthy, sufficient (booleans).
+CONTRADICTED or UNKNOWN, citations: [{index: zero-based document index, quote: verbatim
+12-240 character excerpt (whitespace may be normalized)}]}), contradictions, trustworthy, sufficient (booleans).
 Use citations for every supported or contradicted axis; at most 3 per axis. Do not fabricate.
 DATA_JSON follows:\n""" + canonical({"claims": claims, "documents": [{"index": i, "receipt": receipts[i], "text": body} for i, body in enumerate(bodies)]})
-    raw = gl.nondet.exec_prompt(prompt, response_format="json")
+    raw = gl.nondet.exec_prompt(prompt + '\nExact output shape (replace findings/citations/flags with your assessment): ' + canonical({**{a: {"finding": "UNKNOWN", "citations": []} for a in AXES}, "contradictions": False, "trustworthy": False, "sufficient": False}) + '\nFlags must be literal JSON booleans, never objects, strings or numbers. Quotes must preserve source words and punctuation.', response_format="json")
     require(isinstance(raw, dict) and len(canonical(raw).encode("utf-8")) <= 10000, "LLM response limit")
     result = raw
+    print("IncidentProof assessment:", canonical(result))
     validate_assessment(result, bodies, receipts)
     return result
 

@@ -28,7 +28,7 @@ IDs are unique per contract; canonical claim/manifest commitments are unique acr
 
 Version 1 deliberately accepts only canonical HTTPS `raw.githubusercontent.com/owner/repo/<40 lowercase commit hex>/path.{txt,json,md,csv,log}` snapshots. Export public postmortems, status records, logs and test reports there with provenance. Mutable branch URLs, custom hosts, credentials, ports, escapes, queries and fragments are rejected. This narrow transport makes SSRF and canonicalization review tractable. Hashes authenticate copies, not their origin or truth.
 
-1–5 snapshots; 16,000 bytes each; 48,000 total committed bytes; 8,000 claim-input bytes; 4,000 manifest-input bytes. Wrong status, byte length, hash, UTF-8 or fetch errors produce unavailable/mismatch receipts. Only authenticated UTF-8 reaches the model. LLM responses capped at 10,000 bytes, three exact-substring citations per axis (12–240 characters). No document instructions or uncommitted links are followed.
+1–5 snapshots; 16,000 bytes each; 48,000 total committed bytes; 8,000 claim-input bytes; 4,000 manifest-input bytes. Wrong status, byte length, hash, UTF-8 or fetch errors produce unavailable/mismatch receipts. Only authenticated UTF-8 reaches the model. LLM responses capped at 10,000 bytes, three verbatim citations with whitespace normalization per axis (12–240 characters). No document instructions or uncommitted links are followed.
 
 ## Development
 
