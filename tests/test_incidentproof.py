@@ -109,3 +109,20 @@ def test_bounds(setup,direct_vm):
     with direct_vm.expect_revert(): commit(setup,id="BAD")
     with direct_vm.expect_revert(): setup.get_history(0,51)
     with direct_vm.expect_revert(): setup.get_incident("missing")
+
+@pytest.mark.parametrize('bad_flag',[1,'true',{'value':True}])
+def test_boolean_schema_rejects_coercion(setup,direct_vm,bad_flag):
+    commit(setup);direct_vm.clear_mocks()
+    result=assessment();result['trustworthy']=bad_flag
+    direct_vm.mock_web('raw',{'status':200,'body':BODY})
+    direct_vm.mock_llm('independent incident',json.dumps(result))
+    with direct_vm.expect_revert('boolean required'):setup.verify_incident('demo-incident')
+    assert json.loads(setup.get_incident('demo-incident'))['state']=='COMMITTED'
+
+def test_authenticated_excerpt_whitespace(setup,direct_vm):
+    commit(setup);direct_vm.clear_mocks();result=assessment()
+    result['timeline']['citations']=[{'index':0,'quote':'capacity was zero. Reproducer: set capacity to zero'}]
+    direct_vm.mock_web('raw',{'status':200,'body':BODY})
+    direct_vm.mock_llm('independent incident',json.dumps(result))
+    setup.verify_incident('demo-incident')
+    assert direct_vm.run_validator()

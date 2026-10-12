@@ -4,6 +4,8 @@ A standalone GenLayer Intelligent Contract that verifies software incident claim
 
 An operator commits a statement, timeline, root cause, remediation and an immutable evidence manifest. Leader and validators independently retrieve exact snapshot bytes, authenticate SHA-256 and length, and interpret qualitative claims. Each independently derives three findings and evaluates contradictions, sufficiency and trustworthiness. Validators require matching decision fields and evidence receipts; wording and selected quotations may differ. No wallet UI, backend, tokens, custody or payment accounting.
 
+Explicitly fabricated/synthetic evidence is always untrustworthy operational evidence, even if all three claims are internally supported. The safe synthetic demo therefore expects INSUFFICIENT, demonstrating qualitative interpretation without misrepresenting a fictional incident as verified.
+
 ## Outcomes
 
 | Outcome | Rule |
