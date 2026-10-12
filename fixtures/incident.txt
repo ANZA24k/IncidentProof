@@ -1,0 +1,18 @@
+IncidentProof SYNTHETIC fixture. No real operator, service, customers or secrets.
+Scope: deterministic demonstration of incident evidence interpretation.
+Service: DemoQueue v1.0. Incident date: 2026-10-01. All times UTC.
+Status record: 10:00 healthy. 10:05 error rate rose to 100% for queue submissions.
+10:06 alert fired. 10:08 engineer reproduced failure. 10:15 corrected config deployed.
+10:18 health restored; 10:25 observation window ended with zero submission errors.
+Diagnostic log at 10:08: configured queue_capacity=0; enqueue rejected because capacity
+was zero. Reproducer: set capacity to zero, submit item, receive CapacityError.
+Control: set capacity to 100, submit same item, receive accepted with queue length 1.
+Root cause: a configuration rollout allowed queue_capacity=0 without validation.
+Change record at 10:15: startup rejects capacity below 1 before accepting traffic;
+production demonstration configuration restored queue_capacity=100.
+Regression test report at 10:17: capacity 0 rejected on startup (PASS); capacity -1
+rejected (PASS); capacity 1 accepts one item (PASS); capacity 100 accepts item (PASS).
+Repeat reproducer after change: invalid zero capacity prevented at startup, healthy
+configuration accepted submission. These tests address the misconfiguration cause.
+Provenance: all records are fabricated together for this public demonstration, not
+independent real-world telemetry or proof of a production incident.
